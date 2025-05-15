@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package findito;
+
+option go_package = "github.com/Findito/server/proto";
+
+message Location {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+message FoundItem {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  Location location = 4;
+  int64 found_timestamp = 5;
+}
+
+message ReportFoundItemRequest {
+  string name = 1;
+  string description = 2;
+  Location location = 3;
+}
+
+message ReportFoundItemResponse {
+  string item_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+message SearchItemsAlongRouteRequest {
+  repeated Location route_points = 1;
+  double search_radius_meters = 2;
+  int64 max_age_seconds = 3;
+}
+
+message SearchItemsAlongRouteResponse {
+  repeated FoundItem items = 1;
+}
+
+service FinditoService {
+  rpc ReportFoundItem(ReportFoundItemRequest) returns (ReportFoundItemResponse);
+
+  rpc SearchItemsAlongRoute(SearchItemsAlongRouteRequest) returns (SearchItemsAlongRouteResponse);
+}
