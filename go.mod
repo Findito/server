@@ -1,4 +1,4 @@
-module server
+module github.com/Findito/server
 
 go 1.24
 
