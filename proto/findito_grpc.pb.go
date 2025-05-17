@@ -19,16 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	FinditoService_ReportFoundItem_FullMethodName       = "/server.FinditoService/ReportFoundItem"
-	FinditoService_SearchItemsAlongRoute_FullMethodName = "/server.FinditoService/SearchItemsAlongRoute"
+	FinditoService_ReportFoundItem_FullMethodName       = "/findito.FinditoService/ReportFoundItem"
+	FinditoService_SearchItemsAlongRoute_FullMethodName = "/findito.FinditoService/SearchItemsAlongRoute"
+	FinditoService_TrackNearbyItems_FullMethodName      = "/findito.FinditoService/TrackNearbyItems"
 )
 
 // FinditoServiceClient is the client API for FinditoService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FinditoServiceClient interface {
+	// Unary
 	ReportFoundItem(ctx context.Context, in *ReportFoundItemRequest, opts ...grpc.CallOption) (*ReportFoundItemResponse, error)
 	SearchItemsAlongRoute(ctx context.Context, in *SearchItemsAlongRouteRequest, opts ...grpc.CallOption) (*SearchItemsAlongRouteResponse, error)
+	// Stream
+	TrackNearbyItems(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[LocationUpdate, FoundItem], error)
 }
 
 type finditoServiceClient struct {
@@ -59,12 +63,28 @@ func (c *finditoServiceClient) SearchItemsAlongRoute(ctx context.Context, in *Se
 	return out, nil
 }
 
+func (c *finditoServiceClient) TrackNearbyItems(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[LocationUpdate, FoundItem], error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	stream, err := c.cc.NewStream(ctx, &FinditoService_ServiceDesc.Streams[0], FinditoService_TrackNearbyItems_FullMethodName, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &grpc.GenericClientStream[LocationUpdate, FoundItem]{ClientStream: stream}
+	return x, nil
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type FinditoService_TrackNearbyItemsClient = grpc.BidiStreamingClient[LocationUpdate, FoundItem]
+
 // FinditoServiceServer is the server API for FinditoService service.
 // All implementations must embed UnimplementedFinditoServiceServer
 // for forward compatibility.
 type FinditoServiceServer interface {
+	// Unary
 	ReportFoundItem(context.Context, *ReportFoundItemRequest) (*ReportFoundItemResponse, error)
 	SearchItemsAlongRoute(context.Context, *SearchItemsAlongRouteRequest) (*SearchItemsAlongRouteResponse, error)
+	// Stream
+	TrackNearbyItems(grpc.BidiStreamingServer[LocationUpdate, FoundItem]) error
 	mustEmbedUnimplementedFinditoServiceServer()
 }
 
@@ -80,6 +100,9 @@ func (UnimplementedFinditoServiceServer) ReportFoundItem(context.Context, *Repor
 }
 func (UnimplementedFinditoServiceServer) SearchItemsAlongRoute(context.Context, *SearchItemsAlongRouteRequest) (*SearchItemsAlongRouteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchItemsAlongRoute not implemented")
+}
+func (UnimplementedFinditoServiceServer) TrackNearbyItems(grpc.BidiStreamingServer[LocationUpdate, FoundItem]) error {
+	return status.Errorf(codes.Unimplemented, "method TrackNearbyItems not implemented")
 }
 func (UnimplementedFinditoServiceServer) mustEmbedUnimplementedFinditoServiceServer() {}
 func (UnimplementedFinditoServiceServer) testEmbeddedByValue()                        {}
@@ -138,11 +161,18 @@ func _FinditoService_SearchItemsAlongRoute_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FinditoService_TrackNearbyItems_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(FinditoServiceServer).TrackNearbyItems(&grpc.GenericServerStream[LocationUpdate, FoundItem]{ServerStream: stream})
+}
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type FinditoService_TrackNearbyItemsServer = grpc.BidiStreamingServer[LocationUpdate, FoundItem]
+
 // FinditoService_ServiceDesc is the grpc.ServiceDesc for FinditoService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var FinditoService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "server.FinditoService",
+	ServiceName: "findito.FinditoService",
 	HandlerType: (*FinditoServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -154,6 +184,13 @@ var FinditoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _FinditoService_SearchItemsAlongRoute_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "TrackNearbyItems",
+			Handler:       _FinditoService_TrackNearbyItems_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "findito.proto",
 }

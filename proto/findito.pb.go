@@ -73,6 +73,58 @@ func (x *Location) GetLongitude() float64 {
 	return 0
 }
 
+type LocationUpdate struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Location      *Location              `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	RadiusKm      float64                `protobuf:"fixed64,2,opt,name=radius_km,json=radiusKm,proto3" json:"radius_km,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LocationUpdate) Reset() {
+	*x = LocationUpdate{}
+	mi := &file_findito_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LocationUpdate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LocationUpdate) ProtoMessage() {}
+
+func (x *LocationUpdate) ProtoReflect() protoreflect.Message {
+	mi := &file_findito_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LocationUpdate.ProtoReflect.Descriptor instead.
+func (*LocationUpdate) Descriptor() ([]byte, []int) {
+	return file_findito_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LocationUpdate) GetLocation() *Location {
+	if x != nil {
+		return x.Location
+	}
+	return nil
+}
+
+func (x *LocationUpdate) GetRadiusKm() float64 {
+	if x != nil {
+		return x.RadiusKm
+	}
+	return 0
+}
+
 type FoundItem struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -86,7 +138,7 @@ type FoundItem struct {
 
 func (x *FoundItem) Reset() {
 	*x = FoundItem{}
-	mi := &file_findito_proto_msgTypes[1]
+	mi := &file_findito_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -98,7 +150,7 @@ func (x *FoundItem) String() string {
 func (*FoundItem) ProtoMessage() {}
 
 func (x *FoundItem) ProtoReflect() protoreflect.Message {
-	mi := &file_findito_proto_msgTypes[1]
+	mi := &file_findito_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -111,7 +163,7 @@ func (x *FoundItem) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FoundItem.ProtoReflect.Descriptor instead.
 func (*FoundItem) Descriptor() ([]byte, []int) {
-	return file_findito_proto_rawDescGZIP(), []int{1}
+	return file_findito_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *FoundItem) GetId() string {
@@ -160,7 +212,7 @@ type ReportFoundItemRequest struct {
 
 func (x *ReportFoundItemRequest) Reset() {
 	*x = ReportFoundItemRequest{}
-	mi := &file_findito_proto_msgTypes[2]
+	mi := &file_findito_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -172,7 +224,7 @@ func (x *ReportFoundItemRequest) String() string {
 func (*ReportFoundItemRequest) ProtoMessage() {}
 
 func (x *ReportFoundItemRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_findito_proto_msgTypes[2]
+	mi := &file_findito_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -185,7 +237,7 @@ func (x *ReportFoundItemRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportFoundItemRequest.ProtoReflect.Descriptor instead.
 func (*ReportFoundItemRequest) Descriptor() ([]byte, []int) {
-	return file_findito_proto_rawDescGZIP(), []int{2}
+	return file_findito_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ReportFoundItemRequest) GetName() string {
@@ -220,7 +272,7 @@ type ReportFoundItemResponse struct {
 
 func (x *ReportFoundItemResponse) Reset() {
 	*x = ReportFoundItemResponse{}
-	mi := &file_findito_proto_msgTypes[3]
+	mi := &file_findito_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -232,7 +284,7 @@ func (x *ReportFoundItemResponse) String() string {
 func (*ReportFoundItemResponse) ProtoMessage() {}
 
 func (x *ReportFoundItemResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_findito_proto_msgTypes[3]
+	mi := &file_findito_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,7 +297,7 @@ func (x *ReportFoundItemResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportFoundItemResponse.ProtoReflect.Descriptor instead.
 func (*ReportFoundItemResponse) Descriptor() ([]byte, []int) {
-	return file_findito_proto_rawDescGZIP(), []int{3}
+	return file_findito_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ReportFoundItemResponse) GetItemId() string {
@@ -280,7 +332,7 @@ type SearchItemsAlongRouteRequest struct {
 
 func (x *SearchItemsAlongRouteRequest) Reset() {
 	*x = SearchItemsAlongRouteRequest{}
-	mi := &file_findito_proto_msgTypes[4]
+	mi := &file_findito_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -292,7 +344,7 @@ func (x *SearchItemsAlongRouteRequest) String() string {
 func (*SearchItemsAlongRouteRequest) ProtoMessage() {}
 
 func (x *SearchItemsAlongRouteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_findito_proto_msgTypes[4]
+	mi := &file_findito_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -305,7 +357,7 @@ func (x *SearchItemsAlongRouteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchItemsAlongRouteRequest.ProtoReflect.Descriptor instead.
 func (*SearchItemsAlongRouteRequest) Descriptor() ([]byte, []int) {
-	return file_findito_proto_rawDescGZIP(), []int{4}
+	return file_findito_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SearchItemsAlongRouteRequest) GetRoutePoints() []*Location {
@@ -338,7 +390,7 @@ type SearchItemsAlongRouteResponse struct {
 
 func (x *SearchItemsAlongRouteResponse) Reset() {
 	*x = SearchItemsAlongRouteResponse{}
-	mi := &file_findito_proto_msgTypes[5]
+	mi := &file_findito_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -350,7 +402,7 @@ func (x *SearchItemsAlongRouteResponse) String() string {
 func (*SearchItemsAlongRouteResponse) ProtoMessage() {}
 
 func (x *SearchItemsAlongRouteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_findito_proto_msgTypes[5]
+	mi := &file_findito_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -363,7 +415,7 @@ func (x *SearchItemsAlongRouteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchItemsAlongRouteResponse.ProtoReflect.Descriptor instead.
 func (*SearchItemsAlongRouteResponse) Descriptor() ([]byte, []int) {
-	return file_findito_proto_rawDescGZIP(), []int{5}
+	return file_findito_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SearchItemsAlongRouteResponse) GetItems() []*FoundItem {
@@ -377,33 +429,37 @@ var File_findito_proto protoreflect.FileDescriptor
 
 const file_findito_proto_rawDesc = "" +
 	"\n" +
-	"\rfindito.proto\x12\x06server\"D\n" +
+	"\rfindito.proto\x12\afindito\"D\n" +
 	"\bLocation\x12\x1a\n" +
 	"\blatitude\x18\x01 \x01(\x01R\blatitude\x12\x1c\n" +
-	"\tlongitude\x18\x02 \x01(\x01R\tlongitude\"\xa8\x01\n" +
+	"\tlongitude\x18\x02 \x01(\x01R\tlongitude\"\\\n" +
+	"\x0eLocationUpdate\x12-\n" +
+	"\blocation\x18\x01 \x01(\v2\x11.findito.LocationR\blocation\x12\x1b\n" +
+	"\tradius_km\x18\x02 \x01(\x01R\bradiusKm\"\xa9\x01\n" +
 	"\tFoundItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\x12,\n" +
-	"\blocation\x18\x04 \x01(\v2\x10.server.LocationR\blocation\x12'\n" +
-	"\x0ffound_timestamp\x18\x05 \x01(\x03R\x0efoundTimestamp\"|\n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12-\n" +
+	"\blocation\x18\x04 \x01(\v2\x11.findito.LocationR\blocation\x12'\n" +
+	"\x0ffound_timestamp\x18\x05 \x01(\x03R\x0efoundTimestamp\"}\n" +
 	"\x16ReportFoundItemRequest\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x02 \x01(\tR\vdescription\x12,\n" +
-	"\blocation\x18\x03 \x01(\v2\x10.server.LocationR\blocation\"f\n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\x12-\n" +
+	"\blocation\x18\x03 \x01(\v2\x11.findito.LocationR\blocation\"f\n" +
 	"\x17ReportFoundItemResponse\x12\x17\n" +
 	"\aitem_id\x18\x01 \x01(\tR\x06itemId\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x03 \x01(\tR\amessage\"\xad\x01\n" +
-	"\x1cSearchItemsAlongRouteRequest\x123\n" +
-	"\froute_points\x18\x01 \x03(\v2\x10.server.LocationR\vroutePoints\x120\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"\xae\x01\n" +
+	"\x1cSearchItemsAlongRouteRequest\x124\n" +
+	"\froute_points\x18\x01 \x03(\v2\x11.findito.LocationR\vroutePoints\x120\n" +
 	"\x14search_radius_meters\x18\x02 \x01(\x01R\x12searchRadiusMeters\x12&\n" +
-	"\x0fmax_age_seconds\x18\x03 \x01(\x03R\rmaxAgeSeconds\"H\n" +
-	"\x1dSearchItemsAlongRouteResponse\x12'\n" +
-	"\x05items\x18\x01 \x03(\v2\x11.server.FoundItemR\x05items2\xca\x01\n" +
-	"\x0eFinditoService\x12R\n" +
-	"\x0fReportFoundItem\x12\x1e.server.ReportFoundItemRequest\x1a\x1f.server.ReportFoundItemResponse\x12d\n" +
-	"\x15SearchItemsAlongRoute\x12$.server.SearchItemsAlongRouteRequest\x1a%.server.SearchItemsAlongRouteResponseB!Z\x1fgithub.com/Findito/server/protob\x06proto3"
+	"\x0fmax_age_seconds\x18\x03 \x01(\x03R\rmaxAgeSeconds\"I\n" +
+	"\x1dSearchItemsAlongRouteResponse\x12(\n" +
+	"\x05items\x18\x01 \x03(\v2\x12.findito.FoundItemR\x05items2\x93\x02\n" +
+	"\x0eFinditoService\x12T\n" +
+	"\x0fReportFoundItem\x12\x1f.findito.ReportFoundItemRequest\x1a .findito.ReportFoundItemResponse\x12f\n" +
+	"\x15SearchItemsAlongRoute\x12%.findito.SearchItemsAlongRouteRequest\x1a&.findito.SearchItemsAlongRouteResponse\x12C\n" +
+	"\x10TrackNearbyItems\x12\x17.findito.LocationUpdate\x1a\x12.findito.FoundItem(\x010\x01B!Z\x1fgithub.com/Findito/server/protob\x06proto3"
 
 var (
 	file_findito_proto_rawDescOnce sync.Once
@@ -417,29 +473,33 @@ func file_findito_proto_rawDescGZIP() []byte {
 	return file_findito_proto_rawDescData
 }
 
-var file_findito_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_findito_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_findito_proto_goTypes = []any{
-	(*Location)(nil),                      // 0: server.Location
-	(*FoundItem)(nil),                     // 1: server.FoundItem
-	(*ReportFoundItemRequest)(nil),        // 2: server.ReportFoundItemRequest
-	(*ReportFoundItemResponse)(nil),       // 3: server.ReportFoundItemResponse
-	(*SearchItemsAlongRouteRequest)(nil),  // 4: server.SearchItemsAlongRouteRequest
-	(*SearchItemsAlongRouteResponse)(nil), // 5: server.SearchItemsAlongRouteResponse
+	(*Location)(nil),                      // 0: findito.Location
+	(*LocationUpdate)(nil),                // 1: findito.LocationUpdate
+	(*FoundItem)(nil),                     // 2: findito.FoundItem
+	(*ReportFoundItemRequest)(nil),        // 3: findito.ReportFoundItemRequest
+	(*ReportFoundItemResponse)(nil),       // 4: findito.ReportFoundItemResponse
+	(*SearchItemsAlongRouteRequest)(nil),  // 5: findito.SearchItemsAlongRouteRequest
+	(*SearchItemsAlongRouteResponse)(nil), // 6: findito.SearchItemsAlongRouteResponse
 }
 var file_findito_proto_depIdxs = []int32{
-	0, // 0: server.FoundItem.location:type_name -> server.Location
-	0, // 1: server.ReportFoundItemRequest.location:type_name -> server.Location
-	0, // 2: server.SearchItemsAlongRouteRequest.route_points:type_name -> server.Location
-	1, // 3: server.SearchItemsAlongRouteResponse.items:type_name -> server.FoundItem
-	2, // 4: server.FinditoService.ReportFoundItem:input_type -> server.ReportFoundItemRequest
-	4, // 5: server.FinditoService.SearchItemsAlongRoute:input_type -> server.SearchItemsAlongRouteRequest
-	3, // 6: server.FinditoService.ReportFoundItem:output_type -> server.ReportFoundItemResponse
-	5, // 7: server.FinditoService.SearchItemsAlongRoute:output_type -> server.SearchItemsAlongRouteResponse
-	6, // [6:8] is the sub-list for method output_type
-	4, // [4:6] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	0, // 0: findito.LocationUpdate.location:type_name -> findito.Location
+	0, // 1: findito.FoundItem.location:type_name -> findito.Location
+	0, // 2: findito.ReportFoundItemRequest.location:type_name -> findito.Location
+	0, // 3: findito.SearchItemsAlongRouteRequest.route_points:type_name -> findito.Location
+	2, // 4: findito.SearchItemsAlongRouteResponse.items:type_name -> findito.FoundItem
+	3, // 5: findito.FinditoService.ReportFoundItem:input_type -> findito.ReportFoundItemRequest
+	5, // 6: findito.FinditoService.SearchItemsAlongRoute:input_type -> findito.SearchItemsAlongRouteRequest
+	1, // 7: findito.FinditoService.TrackNearbyItems:input_type -> findito.LocationUpdate
+	4, // 8: findito.FinditoService.ReportFoundItem:output_type -> findito.ReportFoundItemResponse
+	6, // 9: findito.FinditoService.SearchItemsAlongRoute:output_type -> findito.SearchItemsAlongRouteResponse
+	2, // 10: findito.FinditoService.TrackNearbyItems:output_type -> findito.FoundItem
+	8, // [8:11] is the sub-list for method output_type
+	5, // [5:8] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_findito_proto_init() }
@@ -453,7 +513,7 @@ func file_findito_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_findito_proto_rawDesc), len(file_findito_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

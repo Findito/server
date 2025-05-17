@@ -1,12 +1,23 @@
 syntax = "proto3";
 
-package server;
+package findito;
 
 option go_package = "github.com/Findito/server/proto";
+
+//message User {
+//  string id = 1;
+//  string username = 2;
+//  string email = 3;
+//}
 
 message Location {
   double latitude = 1;
   double longitude = 2;
+}
+
+message LocationUpdate {
+  Location location = 1;
+  double radius_km = 2;
 }
 
 message FoundItem {
@@ -39,8 +50,12 @@ message SearchItemsAlongRouteResponse {
   repeated FoundItem items = 1;
 }
 
-service FinditoService {
-  rpc ReportFoundItem(ReportFoundItemRequest) returns (ReportFoundItemResponse);
 
+service FinditoService {
+  // Unary
+  rpc ReportFoundItem(ReportFoundItemRequest) returns (ReportFoundItemResponse);
   rpc SearchItemsAlongRoute(SearchItemsAlongRouteRequest) returns (SearchItemsAlongRouteResponse);
+
+  // Stream
+  rpc TrackNearbyItems(stream LocationUpdate) returns (stream FoundItem);
 }
